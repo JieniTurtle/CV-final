@@ -5,12 +5,16 @@
 #include <iomanip>
 #include <iostream>
 #include <opencv2/core/eigen.hpp>
+#include "include/bag_to_pcd.hpp"
 
 using namespace std;
 
 // Data path
+bool from_bag; // else use pcd directly
 string image_path;
 string pcd_path;
+string save_pcd_path;
+string bag_path;
 string result_path;
 int data_num;
 
@@ -195,8 +199,11 @@ int main(int argc, char **argv) {
   ros::NodeHandle nh;
   ros::Rate loop_rate(0.1);
 
+  nh.param<bool>("common/from_bag", from_bag, true);
   nh.param<string>("common/image_path", image_path, "");
   nh.param<string>("common/pcd_path", pcd_path, "");
+  nh.param<string>("common/save_pcd_path", save_pcd_path, "");
+  nh.param<string>("common/bag_path", bag_path, "");
   nh.param<string>("common/result_path", result_path, "");
   nh.param<int>("common/data_num", data_num, 1);
   nh.param<vector<double>>("camera/camera_matrix", camera_matrix,
@@ -208,7 +215,15 @@ int main(int argc, char **argv) {
   std::vector<Calibration> calibs;
   for (size_t i = 0; i < data_num; i++) {
     string image_file, pcd_file = "";
-    image_file = image_path + "/" + std::to_string(i) + ".bmp";
+    image_file = image_path + "/" + std::to_string(i) + ".png";
+
+    if (from_bag) {
+      string bag_file = bag_path + "/" + std::to_string(i) + ".bag";
+      string save_pcd_file = save_pcd_path + "/" + std::to_string(i) + ".pcd";
+      bag_to_pcd(bag_file, save_pcd_file, "/livox/lidar", true);
+      pcd_file = save_pcd_file;
+    }
+
     pcd_file = pcd_path + "/" + std::to_string(i) + ".pcd";
     Calibration single_calib(image_file, pcd_file, calib_config_file);
     single_calib.fx_ = camera_matrix[0];

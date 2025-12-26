@@ -284,7 +284,7 @@ Visualization Manager:
           Topic: /aft_mapped_to_init
           Unreliable: false
           Value: true
-      Enabled: false
+      Enabled: true
       Name: LIO
     - Angle Tolerance: 0.10000000149011612
       Class: rviz/Odometry
@@ -368,7 +368,6 @@ Visualization Manager:
       Unreliable: false
       Value: false
       Visibility:
-        "": true
         Axes: true
         Grid: true
         Image: true
@@ -382,6 +381,7 @@ Visualization Manager:
           pointcloud_map: true
         Odometry: true
         Path: true
+        PointCloud2: true
         Tracked points: true
         Value: true
       Zoom Factor: 1
@@ -451,7 +451,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.0016154529293999076
+      Distance: 60.88890838623047
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -459,17 +459,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 9.318879127502441
-        Y: -8.604944229125977
-        Z: -20.29692840576172
+        X: 9.31894302368164
+        Y: -8.605103492736816
+        Z: -20.296899795532227
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5197973251342773
+      Pitch: -0.9652022123336792
       Target Frame: aft_mapped
-      Yaw: 3.1945600509643555
+      Yaw: 5.452725887298584
     Saved:
       - Class: rviz/ThirdPersonFollower
         Distance: 2.466799259185791

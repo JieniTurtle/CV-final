@@ -5,12 +5,16 @@
 #include <iomanip>
 #include <iostream>
 #include <opencv2/core/eigen.hpp>
+#include "include/bag_to_pcd.hpp"
 
 using namespace std;
 
 // Data path
+bool from_bag; // else use pcd directly
+string bag_file;
 string image_file;
 string pcd_file;
+string save_pcd_file;
 string result_file;
 
 // Camera config
@@ -193,8 +197,11 @@ int main(int argc, char **argv) {
   ros::NodeHandle nh;
   ros::Rate loop_rate(0.1);
 
-  nh.param<string>("common/image_file", image_file, "/home/squirtle/6.png");
-  nh.param<string>("common/pcd_file", pcd_file, "/home/squirtle/6.pcd");
+  nh.param<bool>("common/from_bag", from_bag, true);
+  nh.param<string>("common/image_file", image_file, "image_file not in config");
+  nh.param<string>("common/pcd_file", pcd_file, "pcd_file not in config");
+  nh.param<string>("common/save_pcd_file", save_pcd_file, "pcd_file not in config");
+  nh.param<string>("common/bag_file", bag_file, "bag_file not in config");
   nh.param<string>("common/result_file", result_file, "");
   std::cout << "image_file path" << image_file << std::endl;
   std::cout << "pcd_file path:" << pcd_file << std::endl;
@@ -204,6 +211,11 @@ int main(int argc, char **argv) {
   nh.param<bool>("calib/use_rough_calib", use_rough_calib, false);
   nh.param<string>("calib/calib_config_file", calib_config_file,"/home/squirtle/catkin_ws/src/livox_camera_calib/config/config_indoor.yaml");
 
+  if (from_bag) {
+    bag_to_pcd(bag_file, save_pcd_file, "/livox/lidar", true);
+    pcd_file = save_pcd_file;
+  }
+  
   Calibration calibra(image_file, pcd_file, calib_config_file);
   calibra.fx_ = camera_matrix[0];
   calibra.cx_ = camera_matrix[2];

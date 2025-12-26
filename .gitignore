@@ -3,3 +3,4 @@ data
 devel
 **.pcd
 .catkin_workspace
+**.bag

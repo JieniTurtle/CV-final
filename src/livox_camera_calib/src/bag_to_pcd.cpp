@@ -7,21 +7,11 @@
 #include <ros/ros.h>
 #include <rosbag/bag.h>
 #include <rosbag/view.h>
+#include "include/bag_to_pcd.hpp"
 
 using namespace std;
 
-string bag_file;
-string lidar_topic;
-string pcd_file;
-bool is_custom_msg;
-
-int main(int argc, char **argv) {
-  ros::init(argc, argv, "lidarCamCalib");
-  ros::NodeHandle nh;
-  nh.param<string>("bag_file", bag_file, "");
-  nh.param<string>("pcd_file", pcd_file, "");
-  nh.param<string>("lidar_topic", lidar_topic, "/livox/lidar");
-  nh.param<bool>("is_custom_msg", is_custom_msg, false);
+int bag_to_pcd(string bag_file, string pcd_file, string lidar_topic, bool is_custom_msg) { 
   pcl::PointCloud<pcl::PointXYZI> output_cloud;
   std::fstream file_;
   file_.open(bag_file, ios::in);
@@ -71,5 +61,26 @@ int main(int argc, char **argv) {
   pcl::io::savePCDFileASCII(pcd_file, output_cloud);
   string msg = "Sucessfully save point cloud to pcd file: " + pcd_file;
   ROS_INFO_STREAM(msg.c_str());
+
+  return 0;
+}
+
+
+int main(int argc, char **argv) {
+
+  string bag_file;
+  string lidar_topic;
+  string pcd_file;
+  bool is_custom_msg;
+
+  ros::init(argc, argv, "lidarCamCalib");
+  ros::NodeHandle nh;
+  nh.param<string>("bag_file", bag_file, "");
+  nh.param<string>("pcd_file", pcd_file, "");
+  nh.param<string>("lidar_topic", lidar_topic, "/livox/lidar");
+  nh.param<bool>("is_custom_msg", is_custom_msg, false);
+
+  bag_to_pcd(bag_file, pcd_file, lidar_topic, is_custom_msg);
+
   return 0;
 }

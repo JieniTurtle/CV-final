@@ -1,6 +1,9 @@
 # Data path. adjust them!
 common:
-    image_path:  "/home/squirtle/Desktop/Squirtle/cv/ws_livox/data/basic1_and_advance4_calibration/image_bmp"
+    from_bag: true   # if true, use rosbag to generate pcd file, then use them to calibrate, else use pcd file directly
+    image_path:  "/home/squirtle/Desktop/Squirtle/cv/ws_livox/data/basic1_and_advance4_calibration/image"
+    bag_path:  "/home/squirtle/Desktop/Squirtle/cv/ws_livox/data/basic1_and_advance4_calibration/livox_bag"
+    save_pcd_path:  "/home/squirtle/Desktop/Squirtle/cv/ws_livox/data/basic1_and_advance4_calibration/my_pcd"
     pcd_path:  "/home/squirtle/Desktop/Squirtle/cv/ws_livox/data/basic1_and_advance4_calibration/pcd"
     result_path:  "/home/squirtle/Desktop/Squirtle/cv/ws_livox/data/basic1_and_advance4_calibration/extrinsic.txt"
     data_num: 7

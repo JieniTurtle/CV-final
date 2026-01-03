@@ -28,12 +28,12 @@ r3live_vio:
 
    # Camera to IMU 旋转矩阵 (camera_ext_R)
    camera_ext_R:
-         [ -0.0463558,  0.00358427,  0.998919,
-           -0.998712,   0.0204875,  -0.0464197,
-           -0.0206317, -0.999784,    0.00262994 ]
+         [ 0,  0, 1,
+           -1, 0, 0,
+           0, -1, 0 ]
 
    # Camera to IMU 平移向量 (camera_ext_t)
-   camera_ext_t: [0.002486, -0.022399, -0.010786]  # Rough extrinsic value, form CAD model, is not correct enough, but can be online calibrated in our datasets.
+   camera_ext_t: [0, 0, 0]  # Rough extrinsic value, form CAD model, is not correct enough, but can be online calibrated in our datasets.
    # camera_ext_R:
    #    [0, 0, 1,
    #     -1, 0, 0,
